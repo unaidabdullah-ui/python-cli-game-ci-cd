@@ -1,49 +1,44 @@
 pipeline {
     agent any
 
-    environment {
-        IMAGE_NAME = "game-app"
-    }
-
     stages {
         stage('Checkout') {
             steps {
-                // Pull code from GitHub
-                git 'https://github.com/YOUR_USERNAME/YOUR_REPO.git'
+                git 'https://github.com/unaidabdullah-ui/GAME.git'
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build') {
             steps {
-                script {
-                    // Build Docker image locally
-                    docker.build("${IMAGE_NAME}:latest")
-                }
+                // Add your build commands here
+                echo 'Building the application...'
             }
         }
 
-        stage('Run Tests') {
+        stage('Test') {
             steps {
-                // Run pytest to validate code
-                sh 'pytest'
+                // Add your test commands here
+                echo 'Running tests...'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo "Deployment stage: Here you could push Docker image or run container"
-                // Example: docker run --rm ${IMAGE_NAME}:latest
+                // Add your deployment commands here
+                echo 'Deploying the application...'
             }
         }
     }
 
     post {
+        always {
+            echo 'Cleaning up...'
+        }
         success {
-            echo "Pipeline succeeded!"
+            echo 'Build and deployment successful!'
         }
         failure {
-            echo "Pipeline failed 😞"
+            echo 'Build or deployment failed.'
         }
     }
 }
-
