@@ -1,0 +1,9 @@
+version: '3.9'
+
+services:
+  game:
+    build: .
+    container_name: guess_game
+    tty: true
+    stdin_open: true
+
