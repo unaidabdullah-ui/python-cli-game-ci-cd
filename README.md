@@ -1,4 +1,4 @@
-![CI](https://github.com/unaidabdullah-ui/python-cli-game-ci-cd/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/unaidabdullah-ui/python-cli-game-ci_cd/actions/workflows/ci.yml/badge.svg)
 ![Docker](https://img.shields.io/badge/Docker-Enabled-blue)
 ![Tests](https://img.shields.io/badge/Tests-Pytest-green)
 
@@ -52,7 +52,7 @@ The goal of this project is to demonstrate how even a small application can be s
 ### 🔹 Run Locally
 
 ```bash
-git clone https://github.com/your-username/python-cli-game-ci-cd.git
+git clone https://github.com/unaidabdullah-ui/python-cli-game-ci-cd.git
 cd python-cli-game-ci-cd
 
 pip install -r requirements.txt
