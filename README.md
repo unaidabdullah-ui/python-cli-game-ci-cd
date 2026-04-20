@@ -1,4 +1,4 @@
-![CI](https://github.com/unaidabdullah-ui/python-cli-game-ci-cd/actions/workflows/ci.yml/badge.svg)
+
 ![Docker](https://img.shields.io/badge/Docker-Enabled-blue)
 ![Tests](https://img.shields.io/badge/Tests-Pytest-green)
 
@@ -103,7 +103,6 @@ Pipeline stages:
 
 * Add REST API (Flask/FastAPI)
 * Deploy on AWS EC2
-* Add GitHub Actions pipeline
 * Add frontend UI (React)
 
 ---
