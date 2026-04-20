@@ -1,4 +1,4 @@
-![CI](https://github.com/unaidabdullah-ui/python-cli-game-ci_cd/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/unaidabdullah-ui/python-cli-game-ci-cd/actions/workflows/ci.yml/badge.svg)
 ![Docker](https://img.shields.io/badge/Docker-Enabled-blue)
 ![Tests](https://img.shields.io/badge/Tests-Pytest-green)
 
