@@ -1,3 +1,8 @@
+![CI](https://img.shields.io/badge/CI-Jenkins-blue)
+![Docker](https://img.shields.io/badge/Docker-Enabled-blue)
+![Tests](https://img.shields.io/badge/Tests-Pytest-green)
+
+
 # 🚀 Python CLI Game with CI/CD & Docker
 
 ## 📌 Overview
