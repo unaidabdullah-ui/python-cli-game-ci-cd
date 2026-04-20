@@ -112,3 +112,13 @@ Pipeline stages:
 ## 👨‍💻 Author
 
 Unaid Abdullah
+
+## 🔥 Why This Project Matters
+
+This project demonstrates how even a simple application can be productionized using:
+
+- CI/CD pipelines
+- Containerization
+- Automated testing
+
+It reflects real-world DevOps practices used in software engineering teams.
