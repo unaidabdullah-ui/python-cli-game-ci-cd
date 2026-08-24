@@ -4,7 +4,11 @@ FROM python:3.12-slim AS builder
 WORKDIR /app
 
 COPY requirements.txt ./
-RUN pip install --no-cache-dir --user -r requirements.txt
+
+# Install dependencies into a known directory
+RUN pip install --no-cache-dir \
+    --target=/install \
+    -r requirements.txt
 
 # ---- Runtime stage: minimal image, non-root user ----
 FROM python:3.12-slim
@@ -13,12 +17,15 @@ RUN useradd --create-home --shell /bin/bash appuser
 
 WORKDIR /app
 
-COPY --from=builder /root/.local /home/appuser/.local
+# Copy installed dependencies from the builder stage
+COPY --from=builder /install /usr/local/lib/python3.12/site-packages
+
 COPY game.py ./
 
-ENV PATH=/home/appuser/.local/bin:$PATH \
-    PYTHONUNBUFFERED=1 \
+ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1
+
+RUN chown -R appuser:appuser /app
 
 USER appuser
 
