@@ -63,9 +63,12 @@ a multi-stage Docker build, and a Jenkins pipeline that gates every merge.
 git clone https://github.com/unaidabdullah-ui/python-cli-game-ci-cd.git
 cd python-cli-game-ci-cd
 
-python3 -m venv .venv && source .venv/bin/activate
-make install
+python3 -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install -r requirements-dev.txt
 python game.py
+
 ```
 
 Optional flags:
