@@ -1,1 +1,4 @@
-pytest
+# Runtime dependencies
+# game.py currently uses only the Python standard library.
+# Keep this file present (even if empty) so Docker/CI installs stay consistent
+# if runtime dependencies are added later.

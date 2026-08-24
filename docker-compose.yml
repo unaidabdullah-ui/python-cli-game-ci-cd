@@ -2,8 +2,13 @@ version: '3.9'
 
 services:
   game:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: guess-game:latest
     container_name: guess_game
     tty: true
     stdin_open: true
-
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1
