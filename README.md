@@ -48,7 +48,6 @@ a multi-stage Docker build, and a Jenkins pipeline that gates every merge.
 ├── .gitignore
 ├── pyproject.toml            # black / isort / pytest / mypy config
 ├── setup.cfg                 # flake8 config
-├── Makefile                  # install / lint / format / typecheck / test / build / run
 ├── Jenkinsfile                # CI/CD pipeline
 └── README.md
 ```
