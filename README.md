@@ -95,10 +95,24 @@ docker compose up --build
 ## 🧪 Development
 
 ```bash
-make lint        # flake8 + black --check + isort --check-only
-make format       # auto-fix formatting with black + isort
-make typecheck    # mypy
-make test         # pytest with coverage
+# Lint
+flake8 .
+
+# Check formatting
+black --check .
+
+# Check import sorting
+isort --check-only .
+
+# Auto-format code
+black .
+isort .
+
+# Type checking
+mypy game.py
+
+# Run tests
+pytest
 ```
 
 ---
