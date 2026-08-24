@@ -1,34 +1,36 @@
-
 ![Docker](https://img.shields.io/badge/Docker-Enabled-blue)
 ![Tests](https://img.shields.io/badge/Tests-Pytest-green)
+![Lint](https://img.shields.io/badge/Lint-flake8%20%7C%20black%20%7C%20isort-yellow)
+![CI](https://img.shields.io/badge/CI%2FCD-Jenkins-red)
 
 # 🚀 Python CLI Game with CI/CD & Docker
 
 ## 📌 Overview
 
-This project is a simple Python-based CLI game ("Guess the Number") enhanced with **DevOps practices** like containerization, automated testing, and CI/CD pipelines using Jenkins.
-
-The goal of this project is to demonstrate how even a small application can be structured and deployed using real-world engineering workflows.
+A simple Python CLI ("Guess the Number") game, structured and deployed the way a
+real service would be: testable code, a linted and type-checked codebase,
+a multi-stage Docker build, and a Jenkins pipeline that gates every merge.
 
 ---
 
 ## 🧠 Tech Stack
 
-* Python
-* Docker
-* Docker Compose
+* Python 3.12
+* Docker / Docker Compose (multi-stage, non-root runtime image)
 * Jenkins (CI/CD)
-* Pytest (Testing)
+* Pytest + coverage
+* flake8, black, isort, mypy
 
 ---
 
 ## ⚙️ Features
 
-* 🎮 Interactive CLI number guessing game
-* 🧪 Automated testing using Pytest
-* 🐳 Dockerized application for consistent environments
-* 🔁 CI/CD pipeline using Jenkins
-* 📦 Dependency management via requirements.txt
+* 🎮 Interactive CLI number guessing game (configurable range and attempt limit)
+* 🧪 Unit-tested game logic, decoupled from I/O for fast, deterministic tests
+* 🐳 Multi-stage Docker build running as a non-root user
+* 🔁 Jenkins pipeline: lint → type-check → test (with coverage) → build → push → deploy
+* 🧹 Enforced style via flake8 / black / isort, static typing via mypy
+* 📦 Separate runtime (`requirements.txt`) and dev/CI (`requirements-dev.txt`) dependencies
 
 ---
 
@@ -36,12 +38,18 @@ The goal of this project is to demonstrate how even a small application can be s
 
 ```
 .
-├── game.py              # Main game logic
-├── test_game.py         # Unit tests
-├── requirements.txt     # Dependencies
-├── Dockerfile           # Container setup
-├── docker-compose.yml   # Multi-container setup
-├── Jenkinsfile          # CI/CD pipeline
+├── game.py                 # Game logic (testable pure functions) + CLI entrypoint
+├── test_game.py             # Unit tests (pytest, mocked I/O)
+├── requirements.txt          # Runtime dependencies
+├── requirements-dev.txt      # Dev/CI tooling (pytest, flake8, black, isort, mypy)
+├── Dockerfile                # Multi-stage, non-root runtime image
+├── docker-compose.yml        # Local run configuration
+├── .dockerignore
+├── .gitignore
+├── pyproject.toml            # black / isort / pytest / mypy config
+├── setup.cfg                 # flake8 config
+├── Makefile                  # install / lint / format / typecheck / test / build / run
+├── Jenkinsfile                # CI/CD pipeline
 └── README.md
 ```
 
@@ -49,17 +57,22 @@ The goal of this project is to demonstrate how even a small application can be s
 
 ## 🛠️ Setup & Run
 
-### 🔹 Run Locally
+### 🔹 Run locally
 
 ```bash
 git clone https://github.com/unaidabdullah-ui/python-cli-game-ci-cd.git
 cd python-cli-game-ci-cd
 
-pip install -r requirements.txt
+python3 -m venv .venv && source .venv/bin/activate
+make install
 python game.py
 ```
 
----
+Optional flags:
+
+```bash
+python game.py --low 1 --high 100 --max-attempts 10
+```
 
 ### 🔹 Run with Docker
 
@@ -68,55 +81,57 @@ docker build -t guess-game .
 docker run -it guess-game
 ```
 
----
-
 ### 🔹 Run with Docker Compose
 
 ```bash
-docker-compose up --build
+docker compose up --build
+```
+
+---
+
+## 🧪 Development
+
+```bash
+make lint        # flake8 + black --check + isort --check-only
+make format       # auto-fix formatting with black + isort
+make typecheck    # mypy
+make test         # pytest with coverage
 ```
 
 ---
 
 ## 🔁 CI/CD Pipeline (Jenkins)
 
-Pipeline stages:
+Stages, run on every build:
 
-1. Clone repository
-2. Install dependencies
-3. Run tests (pytest)
-4. Build Docker image
-5. Deploy container
+1. **Checkout** — pull source
+2. **Setup Environment** — create a venv, install `requirements-dev.txt`
+3. **Lint** — flake8, black, isort (fails the build on violations)
+4. **Type Check** — mypy
+5. **Test** — pytest with coverage, JUnit results published to Jenkins
+6. **Build** — Docker image tagged with the build number and `latest`
+7. **Push** *(main branch only)* — push image to the registry
+8. **Deploy** *(main branch only)* — `docker compose up -d --build`
 
 ---
 
 ## 📈 What This Project Demonstrates
 
-* Writing testable Python code
-* Setting up CI/CD pipelines
-* Containerizing applications using Docker
-* Structuring projects like real-world systems
+* Separating pure logic from I/O for real unit testability
+* A CI pipeline that actually gates on lint/type/test failures, not just echoes
+* A production-style multi-stage, non-root Docker image
+* Reproducible tooling via pinned dev dependencies and shared config files
 
 ---
 
 ## 🚀 Future Improvements
 
 * Add REST API (Flask/FastAPI)
-* Deploy on AWS EC2
-* Add frontend UI (React)
+* Deploy on AWS EC2 / ECS
+* Add a GitHub Actions mirror of the Jenkins pipeline for open-source contributors
 
 ---
 
 ## 👨‍💻 Author
 
 Unaid Abdullah
-
-## 🔥 Why This Project Matters
-
-This project demonstrates how even a simple application can be productionized using:
-
-- CI/CD pipelines
-- Containerization
-- Automated testing
-
-It reflects real-world DevOps practices used in software engineering teams.
